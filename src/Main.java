@@ -18,8 +18,10 @@ public class Main {
                 Select Student or Staff.
                 """;
 
-        String numErrorPrompt = "Please enter a number.";
-        String nameErrorPrompt = "Please enter a valid name.";
+        String numErrorPrompt = "Please enter a positive number.";
+        String stdntYearError = "Please enter a number between 1-4";
+        String staffYearError = "Please enter a number between 1-100";
+        String nameErrorPrompt = "Please enter a valid name. No numbers, Commas, or Special Characters.";
         String title = "Accounting App";
         String secondTitle = "Input";
         String[] startButtonOptions = {"Student", "Staff", "Finish"};
@@ -50,12 +52,37 @@ public class Main {
                 userInput =
                         JOptionPane.showInputDialog(null, studentYearPrompt,
                                 secondTitle,JOptionPane.QUESTION_MESSAGE);
-                student.setYear(userInput);
+
+                // YEAR VALIDATION
+                if(validateStudentYear(userInput)){
+                    student.setYear(userInput);
+                } while(!validateStudentYear(userInput)) {
+                    JOptionPane.showMessageDialog(null,stdntYearError); // warning for year too big
+
+                    // Prompting user to input Student Year again
+                    userInput =
+                            JOptionPane.showInputDialog(null, studentYearPrompt,
+                                    secondTitle,JOptionPane.QUESTION_MESSAGE);
+                }
+
+
                 // Asking user to input student name
                 userInput =
                         JOptionPane.showInputDialog(null, studentFNamePrompt,
                                 secondTitle,JOptionPane.QUESTION_MESSAGE);
-                student.setName(userInput);
+
+                // NAME VALIDATION
+                if(isValidName(userInput)){
+                    student.setName(userInput);
+                } while(!isValidName(userInput)){
+                    JOptionPane.showMessageDialog(null,nameErrorPrompt); // warning of name
+
+                    // Prompt user to input Student name again
+                    userInput =
+                            JOptionPane.showInputDialog(null, studentFNamePrompt,
+                                    secondTitle,JOptionPane.QUESTION_MESSAGE);
+                }
+
 
                 // Asking user to input student address
                 userInput =
@@ -76,7 +103,20 @@ public class Main {
                 userInput =
                         JOptionPane.showInputDialog(null, staffNamePrompt,
                                 secondTitle,JOptionPane.QUESTION_MESSAGE);
-                staff.setName(userInput);
+
+                // VALIDATE STAFF NAME
+
+                if(isValidName(userInput)){
+                    staff.setName(userInput);
+                } while(!isValidName(userInput)){
+                    JOptionPane.showMessageDialog(null,nameErrorPrompt); // warning of name
+
+                    // Prompt user to input Staff name again
+                    userInput =
+                            JOptionPane.showInputDialog(null, staffNamePrompt,
+                                    secondTitle,JOptionPane.QUESTION_MESSAGE);
+                }
+
 
                 // Asking user to input staff address
                 userInput =
@@ -89,12 +129,26 @@ public class Main {
                 userInput =
                         JOptionPane.showInputDialog(null, staffYearsPrompt,
                                 secondTitle,JOptionPane.QUESTION_MESSAGE);
-                staff.setYearOfService(userInput);
+
+                // YEAR VALIDATION
+                if(validateStaffYear(userInput)){
+                    staff.setYearOfService(userInput);
+                } while(!validateStaffYear(userInput)) {
+                    JOptionPane.showMessageDialog(null,staffYearError); // warning for year too big
+
+                    // Prompting user to input staff yearOfService again
+                    userInput =
+                            JOptionPane.showInputDialog(null, staffYearsPrompt,
+                                    secondTitle,JOptionPane.QUESTION_MESSAGE);
+                }
+
 
                 // adding staff to people arrayList
                 staffs.add(staff);
 
-            } else {
+            } else if (choice == 2){ // If user selects Finish
+                continueProgram = false;
+            }else {
                 // program finish
                 continueProgram = false;
             }
@@ -110,5 +164,54 @@ public class Main {
         }
 
         JOptionPane.showMessageDialog(null, report.toString(), secondTitle, JOptionPane.INFORMATION_MESSAGE);
+    }
+
+
+
+    // METHODS
+    public static boolean isAnInt(String year){
+        String regex = "[-?\\d+]";
+        return year.matches(regex);
+    }
+
+    public static boolean validateStudentYear(String year){
+        boolean validYear = false;
+        if (isAnInt(year)) {
+            try {
+                int studentYear;
+                studentYear = Integer.parseInt(year);
+                if (studentYear > 0 && studentYear <= 4) {
+                    validYear = true;
+                } else {
+                    validYear = false;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return validYear;
+    }
+
+    public static boolean validateStaffYear(String year){
+        boolean validYear = false;
+        if (isAnInt(year)) {
+            try {
+                int staffYear;
+                staffYear = Integer.parseInt(year);
+                if (staffYear > 0 && staffYear <= 100) {
+                    validYear = true;
+                } else {
+                    validYear = false;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return validYear;
+    }
+
+    public static boolean isValidName(String input){
+        String regex = "^[\\p{L}\\s.'’\\-]+$"; // match any name with any letter and spaces no special characters or '
+        return input.matches(regex);
     }
 }
