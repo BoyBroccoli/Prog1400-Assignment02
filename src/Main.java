@@ -1,13 +1,17 @@
 import javax.swing.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
         // Creating a Person ArrayList for students and staff
         ArrayList<Person> people = new ArrayList<>();
+        ArrayList<Student> students = new ArrayList<>();
+        ArrayList<Staff> staffs = new ArrayList<>();
         String userInput;
         int choice;
         boolean continueProgram = true;
+        StringBuilder report = new StringBuilder("Results: \n \n");
 
         // Declaring Message Prompts
         String promptGreeting = """
@@ -53,12 +57,15 @@ public class Main {
                                 secondTitle,JOptionPane.QUESTION_MESSAGE);
                 student.setName(userInput);
 
-                // Asking user to input staff address
+                // Asking user to input student address
                 userInput =
                         JOptionPane.showInputDialog(null,studentAddrsPrompt,
                                 secondTitle, JOptionPane.QUESTION_MESSAGE);
 
                 student.setAddress(userInput);
+
+                // adding student to person arrayList
+                students.add(student);
 
 
             } else if (choice == 1) { // Staff Selected
@@ -84,6 +91,9 @@ public class Main {
                                 secondTitle,JOptionPane.QUESTION_MESSAGE);
                 staff.setYearOfService(userInput);
 
+                // adding staff to people arrayList
+                staffs.add(staff);
+
             } else {
                 // program finish
                 continueProgram = false;
@@ -91,5 +101,14 @@ public class Main {
         } while (continueProgram);
 
 
+        for (Student currentStudent: students){
+            report.append(currentStudent.toString(currentStudent));
+        }
+
+        for (Staff currentStaff: staffs){
+            report.append(currentStaff.toString(currentStaff));
+        }
+
+        JOptionPane.showMessageDialog(null, report.toString(), secondTitle, JOptionPane.INFORMATION_MESSAGE);
     }
 }

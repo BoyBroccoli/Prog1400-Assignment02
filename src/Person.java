@@ -93,4 +93,6 @@ public abstract class Person {
         this.postalCode = postalCode;
     }
 
+   // public abstract String toString(Person person);
+
 }
