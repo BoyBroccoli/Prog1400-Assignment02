@@ -1,17 +1,16 @@
 import javax.swing.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
         // Creating a Person ArrayList for students and staff
-        ArrayList<Person> people = new ArrayList<>();
         ArrayList<Student> students = new ArrayList<>();
         ArrayList<Staff> staffs = new ArrayList<>();
         String userInput;
         int choice;
         boolean continueProgram = true;
-        StringBuilder report = new StringBuilder("Results: \n \n");
+        StringBuilder studdentReport = new StringBuilder("Student Results: \n \n");
+        StringBuilder staffReport = new StringBuilder("Staff Results: \n \n");
 
         // Declaring Message Prompts
         String promptGreeting = """
@@ -156,14 +155,14 @@ public class Main {
 
 
         for (Student currentStudent: students){
-            report.append(currentStudent.toString(currentStudent));
+            studdentReport.append(currentStudent.toString(currentStudent));
         }
 
         for (Staff currentStaff: staffs){
-            report.append(currentStaff.toString(currentStaff));
+            staffReport.append(currentStaff.toString(currentStaff));
         }
 
-        JOptionPane.showMessageDialog(null, report.toString(), secondTitle, JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, staffReport.toString(), secondTitle, JOptionPane.INFORMATION_MESSAGE);
     }
 
 
