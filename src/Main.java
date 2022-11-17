@@ -53,9 +53,10 @@ public class Main {
                                 secondTitle,JOptionPane.QUESTION_MESSAGE);
 
                 // YEAR VALIDATION
-                if(validateStudentYear(userInput)){
+                if(Person.validateStudentYear(userInput)){
                     student.setYear(userInput);
-                } while(!validateStudentYear(userInput)) {
+                    student.setFee(userInput);
+                } while(!Person.validateStudentYear(userInput)) {
                     JOptionPane.showMessageDialog(null,stdntYearError); // warning for year too big
 
                     // Prompting user to input Student Year again
@@ -71,9 +72,9 @@ public class Main {
                                 secondTitle,JOptionPane.QUESTION_MESSAGE);
 
                 // NAME VALIDATION
-                if(isValidName(userInput)){
+                if(Person.isValidName(userInput)){
                     student.setName(userInput);
-                } while(!isValidName(userInput)){
+                } while(!Person.isValidName(userInput)){
                     JOptionPane.showMessageDialog(null,nameErrorPrompt); // warning of name
 
                     // Prompt user to input Student name again
@@ -105,9 +106,9 @@ public class Main {
 
                 // VALIDATE STAFF NAME
 
-                if(isValidName(userInput)){
+                if(Person.isValidName(userInput)){
                     staff.setName(userInput);
-                } while(!isValidName(userInput)){
+                } while(!Person.isValidName(userInput)){
                     JOptionPane.showMessageDialog(null,nameErrorPrompt); // warning of name
 
                     // Prompt user to input Staff name again
@@ -130,9 +131,9 @@ public class Main {
                                 secondTitle,JOptionPane.QUESTION_MESSAGE);
 
                 // YEAR VALIDATION
-                if(validateStaffYear(userInput)){
+                if(Person.validateStaffYear(userInput)){
                     staff.setYearOfService(userInput);
-                } while(!validateStaffYear(userInput)) {
+                } while(!Person.validateStaffYear(userInput)) {
                     JOptionPane.showMessageDialog(null,staffYearError); // warning for year too big
 
                     // Prompting user to input staff yearOfService again
@@ -167,50 +168,5 @@ public class Main {
 
 
 
-    // METHODS
-    public static boolean isAnInt(String year){
-        String regex = "[-?\\d+]";
-        return year.matches(regex);
-    }
 
-    public static boolean validateStudentYear(String year){
-        boolean validYear = false;
-        if (isAnInt(year)) {
-            try {
-                int studentYear;
-                studentYear = Integer.parseInt(year);
-                if (studentYear > 0 && studentYear <= 4) {
-                    validYear = true;
-                } else {
-                    validYear = false;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return validYear;
-    }
-
-    public static boolean validateStaffYear(String year){
-        boolean validYear = false;
-        if (isAnInt(year)) {
-            try {
-                int staffYear;
-                staffYear = Integer.parseInt(year);
-                if (staffYear > 0 && staffYear <= 100) {
-                    validYear = true;
-                } else {
-                    validYear = false;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return validYear;
-    }
-
-    public static boolean isValidName(String input){
-        String regex = "^[\\p{L}\\s.'’\\-]+$"; // match any name with any letter and spaces no special characters or '
-        return input.matches(regex);
-    }
 }

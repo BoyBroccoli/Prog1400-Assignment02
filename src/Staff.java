@@ -4,8 +4,8 @@ public class Staff extends Person{
     private double pay;
 
     // Staff Constructor
-    Staff(String fName, String lName, String stNum, String stName, String postalCode, String yearOfService, double pay){
-        super(fName, lName, stNum, stName, postalCode);
+    Staff(String name, String address, String yearOfService, double pay){
+        super(name, address);
         this.yearOfService=yearOfService;
         this.pay=pay;
     }
@@ -32,7 +32,7 @@ public class Staff extends Person{
     // OVERRIDE METHODS
     public String toString(Staff currentStaff){
         String info = "name = " + super.getName() + ", address = " + super.getAddress() +
-                ", years = " + currentStaff.getYearOfService() + ", pay = " + currentStaff.getPay();
+                ", years = " + currentStaff.getYearOfService() + ", pay = $" + currentStaff.getPay();
 
         return info;
     }
