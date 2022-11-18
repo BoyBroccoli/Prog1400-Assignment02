@@ -1,9 +1,11 @@
+import Classes.*;
+
 import javax.swing.*;
 import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        // Creating a Person ArrayList for students and staff
+        // Creating a Classes.Person ArrayList for students and staff
         ArrayList<Student> students = new ArrayList<>();
         ArrayList<Staff> staffs = new ArrayList<>();
         String userInput;
@@ -13,7 +15,7 @@ public class Main {
 
         // Declaring Message Prompts
         String promptGreeting = """
-                Select Student or Staff.
+                Select Classes.Student or Classes.Staff.
                 """;
 
         String numErrorPrompt = "Please enter a positive number.";
@@ -22,16 +24,16 @@ public class Main {
         String nameErrorPrompt = "Please enter a valid name. No numbers, Commas, or Special Characters.";
         String title = "Accounting App";
         String secondTitle = "Input";
-        String[] startButtonOptions = {"Student", "Staff", "Finish"};
+        String[] startButtonOptions = {"Classes.Student", "Classes.Staff", "Finish"};
 
-        // Student Prompts
+        // Classes.Student Prompts
         String studentYearPrompt= "Enter student year(1-4)";
-        String studentFNamePrompt = "Enter a Student Name";
-        String studentAddrsPrompt = "Enter Student Address";
+        String studentFNamePrompt = "Enter a Classes.Student Name";
+        String studentAddrsPrompt = "Enter Classes.Student Address";
 
-        // Staff Prmprts
-        String staffNamePrompt = "Enter Staff Name";
-        String staffAddrsPrompt = "Enter Staff Address";
+        // Classes.Staff Prmprts
+        String staffNamePrompt = "Enter Classes.Staff Name";
+        String staffAddrsPrompt = "Enter Classes.Staff Address";
         String staffYearsPrompt = "Enter staff years of service";
         // Initializing total, outgoing, and incoming
         double total = 00.00;
@@ -48,7 +50,7 @@ public class Main {
                             JOptionPane.WARNING_MESSAGE,
                             null, startButtonOptions, startButtonOptions[0]);
 
-            if (choice == 0){ // Student Selected
+            if (choice == 0){ // Classes.Student Selected
                 Student student = new Student();
 
                 // Asking user to input year
@@ -64,7 +66,7 @@ public class Main {
                 } while(!Student.validateStudentYear(userInput)) {
                     JOptionPane.showMessageDialog(null,stdntYearError); // warning for year too big
 
-                    // Prompting user to input Student Year again
+                    // Prompting user to input Classes.Student Year again
                     userInput =
                             JOptionPane.showInputDialog(null, studentYearPrompt,
                                     secondTitle,JOptionPane.QUESTION_MESSAGE);
@@ -85,7 +87,7 @@ public class Main {
                 } while(!Person.isValidName(userInput)){
                     JOptionPane.showMessageDialog(null,nameErrorPrompt); // warning of name
 
-                    // Prompt user to input Student name again
+                    // Prompt user to input Classes.Student name again
                     userInput =
                             JOptionPane.showInputDialog(null, studentFNamePrompt,
                                     secondTitle,JOptionPane.QUESTION_MESSAGE);
@@ -104,7 +106,7 @@ public class Main {
                 students.add(student);
 
 
-            } else if (choice == 1) { // Staff Selected
+            } else if (choice == 1) { // Classes.Staff Selected
 
                 Staff staff = new Staff();
 
@@ -120,7 +122,7 @@ public class Main {
                 } while(!Person.isValidName(userInput)){
                     JOptionPane.showMessageDialog(null,nameErrorPrompt); // warning of name
 
-                    // Prompt user to input Staff name again
+                    // Prompt user to input Classes.Staff name again
                     userInput =
                             JOptionPane.showInputDialog(null, staffNamePrompt,
                                     secondTitle,JOptionPane.QUESTION_MESSAGE);
@@ -175,7 +177,7 @@ public class Main {
             report.append("\n");
         }
 
-        report.append("Staff: [Total: " + staffs.size() + "]\n");
+        report.append("Classes.Staff: [Total: " + staffs.size() + "]\n");
 
         for (Staff currentStaff: staffs){
             report.append(currentStaff.toString(currentStaff));
