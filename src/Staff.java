@@ -10,7 +10,7 @@ public class Staff extends Person{
         this.pay=pay;
     }
     // Empty Staff Constructor
-    Staff(){};
+    Staff(){}
 
     // Staff Getters
     public String getYearOfService(){
@@ -25,15 +25,36 @@ public class Staff extends Person{
         this.yearOfService=yearOfService;
     }
 
-    public void setPay(double pay){
-        this.pay=pay;
+    public void setPay(String yearsOfService){
+        double basePay = 50000.00;
+        double increase = 500.00;
+        int years = Integer.parseInt(yearsOfService);
+        basePay += increase * years;
+        this.pay=basePay;
     }
 
     // OVERRIDE METHODS
     public String toString(Staff currentStaff){
-        String info = "name = " + super.getName() + ", address = " + super.getAddress() +
-                ", years = " + currentStaff.getYearOfService() + ", pay = $" + currentStaff.getPay();
 
-        return info;
+        return "name = " + super.getName() + ", address = " + super.getAddress() +
+                ", years = " + currentStaff.getYearOfService() + ", pay = $" + currentStaff.getPay();
+    }
+
+    // Methods
+
+    public static boolean validateStaffYear(String year){
+        boolean validYear = false;
+        if (Person.isAnInt(year)) {
+            try {
+                int staffYear;
+                staffYear = Integer.parseInt(year);
+                if (staffYear > 0 && staffYear <= 70) {
+                    validYear = true;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return validYear;
     }
 }

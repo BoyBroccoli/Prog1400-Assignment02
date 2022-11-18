@@ -1,3 +1,5 @@
+import java.util.regex.*;
+
 public abstract class Person {
 
     // INSTANCE VARIABLES
@@ -19,7 +21,7 @@ public abstract class Person {
 
     public String getName(){
         return this.name;
-    };
+    }
 
     public String getAddress(){
         return this.address;
@@ -36,41 +38,8 @@ public abstract class Person {
         this.address=address;
     }
 
-    public static boolean validateStaffYear(String year){
-        boolean validYear = false;
-        if (isAnInt(year)) {
-            try {
-                int staffYear;
-                staffYear = Integer.parseInt(year);
-                if (staffYear > 0 && staffYear <= 100) {
-                    validYear = true;
-                } else {
-                    validYear = false;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return validYear;
-    }
 
-    public static boolean validateStudentYear(String year){
-        boolean validYear = false;
-        if (isAnInt(year)) {
-            try {
-                int studentYear;
-                studentYear = Integer.parseInt(year);
-                if (studentYear > 0 && studentYear <= 4) {
-                    validYear = true;
-                } else {
-                    validYear = false;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return validYear;
-    }
+
 
     public static boolean isValidName(String input){
         String regex = "^[\\p{L}\\s.'’\\-]+$"; // match any name with any letter and spaces no special characters or '
@@ -78,7 +47,7 @@ public abstract class Person {
     }
 
     public static boolean isAnInt(String year){
-        String regex = "[-?\\d+]"; // match any number no matter the length
+        String regex = "^\\d+$"; // match any number no matter the length
         return year.matches(regex);
     }
 

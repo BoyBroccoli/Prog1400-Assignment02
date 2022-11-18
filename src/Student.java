@@ -12,7 +12,7 @@ public class Student extends Person{
     }
     // Empty Student Constructor
 
-    Student(){};
+    Student(){}
 
     // Student Getters
     public String getYear(){
@@ -45,10 +45,25 @@ public class Student extends Person{
 
     // OVERRIDE METHODS
     public String toString(Student currentStudent){
-        String info = "name = " + super.getName() + ", address = " + super.getAddress() +
+        return "name = " + super.getName() + ", address = " + super.getAddress() +
                 ", year = " + currentStudent.getYear() + ", fee = $" + currentStudent.getFee();
-
-        return info;
     }
 
+    // Methods
+
+    public static boolean validateStudentYear(String year){
+        boolean validYear = false;
+        if (isAnInt(year)) {
+            try {
+                int studentYear;
+                studentYear = Integer.parseInt(year);
+                if (studentYear > 0 && studentYear <= 4) {
+                    validYear = true;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return validYear;
+    }
 }

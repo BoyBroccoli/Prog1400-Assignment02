@@ -9,8 +9,7 @@ public class Main {
         String userInput;
         int choice;
         boolean continueProgram = true;
-        StringBuilder studdentReport = new StringBuilder("Student Results: \n \n");
-        StringBuilder staffReport = new StringBuilder("Staff Results: \n \n");
+        StringBuilder report = new StringBuilder((""));
 
         // Declaring Message Prompts
         String promptGreeting = """
@@ -19,7 +18,7 @@ public class Main {
 
         String numErrorPrompt = "Please enter a positive number.";
         String stdntYearError = "Please enter a number between 1-4";
-        String staffYearError = "Please enter a number between 1-100";
+        String staffYearError = "Please enter a number between 1-70";
         String nameErrorPrompt = "Please enter a valid name. No numbers, Commas, or Special Characters.";
         String title = "Accounting App";
         String secondTitle = "Input";
@@ -34,6 +33,11 @@ public class Main {
         String staffNamePrompt = "Enter Staff Name";
         String staffAddrsPrompt = "Enter Staff Address";
         String staffYearsPrompt = "Enter staff years of service";
+        // Initializing total, outgoing, and incoming
+        double total = 00.00;
+        double outgoing = 00.00;
+        double incoming = 00.00;
+
 
 
         // PROGRAM
@@ -53,16 +57,20 @@ public class Main {
                                 secondTitle,JOptionPane.QUESTION_MESSAGE);
 
                 // YEAR VALIDATION
-                if(Person.validateStudentYear(userInput)){
+                if(Student.validateStudentYear(userInput)){
                     student.setYear(userInput);
                     student.setFee(userInput);
-                } while(!Person.validateStudentYear(userInput)) {
+                    incoming += student.getFee();
+                } while(!Student.validateStudentYear(userInput)) {
                     JOptionPane.showMessageDialog(null,stdntYearError); // warning for year too big
 
                     // Prompting user to input Student Year again
                     userInput =
                             JOptionPane.showInputDialog(null, studentYearPrompt,
                                     secondTitle,JOptionPane.QUESTION_MESSAGE);
+                    student.setYear(userInput);
+                    student.setFee(userInput);
+                    incoming += student.getFee();
                 }
 
 
@@ -81,6 +89,7 @@ public class Main {
                     userInput =
                             JOptionPane.showInputDialog(null, studentFNamePrompt,
                                     secondTitle,JOptionPane.QUESTION_MESSAGE);
+                    student.setName(userInput);
                 }
 
 
@@ -115,6 +124,7 @@ public class Main {
                     userInput =
                             JOptionPane.showInputDialog(null, staffNamePrompt,
                                     secondTitle,JOptionPane.QUESTION_MESSAGE);
+                    staff.setName(userInput);
                 }
 
 
@@ -131,15 +141,20 @@ public class Main {
                                 secondTitle,JOptionPane.QUESTION_MESSAGE);
 
                 // YEAR VALIDATION
-                if(Person.validateStaffYear(userInput)){
+                if(Staff.validateStaffYear(userInput)){
                     staff.setYearOfService(userInput);
-                } while(!Person.validateStaffYear(userInput)) {
+                    staff.setPay(userInput);
+                    outgoing += staff.getPay();
+                } while(!Staff.validateStaffYear(userInput)) {
                     JOptionPane.showMessageDialog(null,staffYearError); // warning for year too big
 
                     // Prompting user to input staff yearOfService again
                     userInput =
                             JOptionPane.showInputDialog(null, staffYearsPrompt,
                                     secondTitle,JOptionPane.QUESTION_MESSAGE);
+                    staff.setYearOfService(userInput);
+                    staff.setPay(userInput);
+                    outgoing += staff.getPay();
                 }
 
 
@@ -154,16 +169,27 @@ public class Main {
             }
         } while (continueProgram);
 
-
+        report.append("Students: [Total: " + students.size() + "]\n");
         for (Student currentStudent: students){
-            studdentReport.append(currentStudent.toString(currentStudent));
+            report.append(currentStudent.toString(currentStudent));
+            report.append("\n");
         }
+
+        report.append("Staff: [Total: " + staffs.size() + "]\n");
 
         for (Staff currentStaff: staffs){
-            staffReport.append(currentStaff.toString(currentStaff));
+            report.append(currentStaff.toString(currentStaff));
+            report.append("\n");
         }
+        total = outgoing - incoming; // adding up total
+        incoming = incoming/2; // dividing incoming by half
 
-        JOptionPane.showMessageDialog(null, staffReport.toString(), secondTitle, JOptionPane.INFORMATION_MESSAGE);
+        report.append("\n \n \n");
+        report.append("Outgoing: $" + outgoing +"\n" +
+                "Incoming: $" +incoming + "\n" +
+                "Total: $" + total);
+
+        JOptionPane.showMessageDialog(null, report.toString(), "Report", JOptionPane.INFORMATION_MESSAGE);
     }
 
 
